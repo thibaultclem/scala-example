@@ -12,7 +12,23 @@ recursion.
 In Scala, only directly recursive calls to the current function are
 optimized.
 
+fonction récursionTerminale(n) :
+  // ...
+  retourne récursionTerminale(n - 1)
+
+fonction récursionNonTerminale(n) :
+  // ...
+  retourne n + récursionNonTerminale(n - 1)
+
  */
+
+def tailRecursiveFunction(n: Int): Int =
+  //...
+  tailRecursiveFunction(n-1)
+
+def notTailRecursiveFunction(n: Int): Int =
+  //...
+  n + notTailRecursiveFunction(n-1)
 
 // Example of tail recursive function with gcd(): computes the greatest common
 // divisor of two numbers (using Euclid’s algorithm).
