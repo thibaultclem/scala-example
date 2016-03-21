@@ -1,25 +1,36 @@
 /*
 Class and Object
+
 How functions create and encapsulate data structures ?
+
 Suppose we want to implement the addition of two rational
 numbers (a rational number is x/y):
+
 def addRationalNumerator(n1: Int, d1: Int, n2: Int, d2: Int): Int
 def addRationalDenominator(n1: Int, d1: Int, n2: Int, d2: Int): Int
+
 It would be difficult to manage all these numerators and
 denominators.
+
 A better choice is to combine the numerator and denominator of a
 rational number in a data structure.
+
 In Scala, we do this by defining a class:
+
  */
 class Rational(x: Int, y: Int) {
+
   //Represented Rational in their simplest form
   private def gcd(x: Int, y: Int): Int = if (y == 0) x else gcd(y, x % y)
   private val g = gcd(x, y)
+
   // # requirement
   require(y != 0, "Denominator must not be zero")
   // See assert paragraph at the end of this sheet
+
   // # constructor
   def this(x: Int) = this(x, 1)
+
   // # members
   def numer = x / g
   def denom = y / g
@@ -48,6 +59,7 @@ class Rational(x: Int, y: Int) {
 
   def min(r: Rational) = if (this.less(r)) this else r
 }
+
 
 /*
 
@@ -81,6 +93,7 @@ strange.add(strange) //ArithmeticException: / by zero if no requirement in the c
 
 // Use the second constructor with only one parameter
 val w = new Rational(5)
+
 
 /*
 
