@@ -20,6 +20,9 @@ fonction récursionNonTerminale(n) :
   // ...
   retourne n + récursionNonTerminale(n - 1)
 
+
+Inverse of a tail-recursive function is a linear-recursive function
+
  */
 
 def tailRecursiveFunction(n: Int): Int =
