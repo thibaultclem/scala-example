@@ -20,3 +20,10 @@ class Nil[T] extends List[T] {
   def head: Nothing = throw new NoSuchElementException("Nil.head") // 'Nothing' is a subtype of any other type
   def tail: Nothing = throw new NoSuchElementException("Nil.tail")
 }
+
+object List {
+  //List(2, 3) = List.apply(1, 2)
+  def apply[T](x1: T, x2: T): List[T] = new Cons(x1, new Cons(x2, new Nil))
+  //List() = List.apply()
+  def apply[T]() = new Nil
+}
