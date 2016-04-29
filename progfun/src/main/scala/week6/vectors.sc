@@ -36,3 +36,12 @@ by all elements of xs.
 
 23 +: nums
 people :+ "Thib"
+
+/*
+
+Vector or List ?
+
+If you want to access mainly the head (recursive function for instance) use List
+Otherwise use Vector as it more efficient than List
+
+ */
