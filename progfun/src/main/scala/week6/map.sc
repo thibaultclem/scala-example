@@ -7,7 +7,6 @@ Map[key,value] is a data structure that associates keys with values
 Examples:
 
  */
-
 val romanNumerals = Map("I" -> 1, "V" -> 5, "X" -> 10)
 val capitalOfCountry = Map("US" -> "Washington", "Switzerland" -> "Bern")
 
@@ -16,10 +15,8 @@ val capitalOfCountry = Map("US" -> "Washington", "Switzerland" -> "Bern")
 val countryOfCapital = capitalOfCountry map {
   case(x, y) => (y, x)
 }
-
 // Map also extends the function type key => value
 capitalOfCountry("US")
-
 // Get method: Query without knowing if the map contains the given key
 capitalOfCountry get "US"
 capitalOfCountry get "France"
@@ -32,7 +29,6 @@ def showCapital(country: String) = capitalOfCountry.get(country) match {
 }
 showCapital("US")
 showCapital("Andorra")
-
 //Default Value
 //Map can be turn to a total function thanks to default value
 //Avoid to lead to an exception if the key was not stored in the map
@@ -64,7 +60,6 @@ class Poly(terms0: Map[Int, Double]) {
     (for ((exp, coeff) <- terms.toList.sorted.reverse)
       yield coeff+"x^"+exp) mkString " + "
 }
-
 val p1 = new Poly(1 -> 2.0, 3 -> 4.0, 5 -> 6.2)
 val p2 = new Poly(0 -> 3.0, 3 -> 7.0)
 p1 + p2
