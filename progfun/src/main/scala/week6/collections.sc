@@ -77,3 +77,18 @@ xs.max
 
 // min : The minimum of all elements of this collection
 xs.min
+
+/*
+
+Sorted and GroupBy
+
+ */
+val fruit = List("apples", "oranges", "pears", "banana", "pineapple")
+
+//Sorted
+fruit.sorted
+//Sorted by length of words
+fruit sortWith (_.length < _.length)
+
+//GroupBy
+fruit groupBy (_.head)
