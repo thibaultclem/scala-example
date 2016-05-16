@@ -41,7 +41,10 @@ object Anagrams {
     } toList) sortWith(_._1 < _._1)
 
   /** Converts a sentence into its character occurrence list. */
-  def sentenceOccurrences(s: Sentence): Occurrences = wordOccurrences(s mkString(""))
+  def sentenceOccurrences(s: Sentence): Occurrences = s match {
+    case List() => Nil
+    case x => wordOccurrences(x mkString(""))
+  }
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
    *  the words that have that occurrence count.
@@ -61,7 +64,10 @@ object Anagrams {
   lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = dictionary groupBy((w: Word) => wordOccurrences(w))
 
   /** Returns all the anagrams of a given word. */
-  def wordAnagrams(word: Word): List[Word] = dictionaryByOccurrences(wordOccurrences(word))
+  def wordAnagrams(word: Word): List[Word] = dictionaryByOccurrences.get(wordOccurrences(word)) match {
+    case Some(word) => word
+    case None => List()
+  }
 
   /** Returns the list of all subsets of the occurrence list.
    *  This includes the occurrence itself, i.e. `List(('k', 1), ('o', 1))`
@@ -105,7 +111,16 @@ object Anagrams {
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences = y match {
+    case List() => x
+    case occ :: occs => {
+      val xMap = x.toMap
+      if(occ._2 == (xMap apply occ._1))
+        subtract((xMap - occ._1).toList, occs)
+      else
+        subtract((xMap updated(occ._1, occ._2)).toList, occs)
+    }
+  }
 
   /** Returns a list of all anagram sentences of the given sentence.
    *
@@ -147,5 +162,15 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = { //Robert
+    if (sentence.isEmpty) List(List())
+    else {
+      val option = combinations(sentenceOccurrences(sentence))
+      (for {
+      //endSentences <- sentenceAnagrams(List((subtract(sentenceOccurrences(sentence),option)) map (t => t._1) mkString("")))
+        word <- wordAnagrams(option.head map (t => t._1) mkString(""))
+      } yield word) :: sentenceAnagrams(List((subtract(sentenceOccurrences(sentence),option.head)) map (t => t._1) mkString("")))
+    }
+
+  }
 }
