@@ -10,14 +10,12 @@ The other elements are only computed when they are needed,
 where “needed” means that someone calls tail on the stream.
 
  */
-
 // Streams are defined from a constant Stream.empty and a constructor Stream.cons. :
 val xs = Stream.cons(1, Stream.cons(2, Stream.empty))
 
 //They can also be defined like the other collections by using the object Stream
 // as a factory:
 Stream(1, 2, 3)
-
 //The toStream method on a collection will turn the collection into a stream:
 (1 to 1000).toStream
 
@@ -55,3 +53,25 @@ x #:: xs == Stream.cons(x, xs)
 #:: can be used in expressions as well as patterns.
 
  */
+
+
+/*
+
+Infinite streams
+
+we saw that all elements of a stream except the first one are
+computed only when they are needed to produce a result.
+
+This opens up the possibility to define infinite streams!
+
+For instance, here is the stream of all integers starting from a given
+number:
+ */
+def from(n: Int): Stream[Int] = n #:: from(n+1)
+//The stream of all natural numbers:
+val nats = from(0)
+
+//The stream of all multipes of 4:
+val m4s = nats map (_ * 4)
+
+(m4s take 1000).toList
